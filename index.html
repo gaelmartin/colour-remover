@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,6 +26,26 @@
             justify-content: center;
             gap: 14px;
             margin-bottom: 24px;
+            position: relative;
+        }
+
+        .lang-select {
+            position: absolute;
+            right: 0;
+            background: #16213e;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #ccc;
+            font-size: 0.85rem;
+            padding: 6px 10px;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .lang-select:hover,
+        .lang-select:focus {
+            border-color: #7c5cfc;
         }
 
         .logo {
@@ -803,19 +823,24 @@
                 <path d="M48 22l4 10-4 10-4-10z" fill="#7c5cfc"/>
                 <path d="M40 32l8-6v12z" fill="#5a3fd4"/>
             </svg>
-            <h1>Créateur de Logos</h1>
+            <h1 data-i18n="title">Créateur de Logos</h1>
+            <select class="lang-select" id="langSelect">
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="cs">Čeština</option>
+            </select>
         </div>
 
         <div class="upload-zone" id="uploadZone">
-            <p id="uploadText">Glissez une image ici ou</p>
+            <p id="uploadText" data-i18n="uploadText">Glissez une image ici ou</p>
             <div class="upload-buttons">
                 <button class="upload-btn" id="uploadFileBtn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 2v6h6M12 18v-6M9 15l3-3 3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    Parcourir les fichiers
+                    <span data-i18n="browseFiles">Parcourir les fichiers</span>
                 </button>
                 <button class="upload-btn" id="uploadPhotoBtn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><path d="M21 15l-5-5L5 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    Bibliothèque de photos
+                    <span data-i18n="photoLibrary">Bibliothèque de photos</span>
                 </button>
             </div>
             <input type="file" id="fileInput" accept="*/*">
@@ -824,32 +849,32 @@
 
         <div id="workspace" class="hidden">
             <div class="mode-switch">
-                <span id="modeColorLabel" class="active">Couleur</span>
+                <span id="modeColorLabel" class="active" data-i18n="modeColor">Couleur</span>
                 <label class="toggle">
                     <input type="checkbox" id="modeToggle">
                     <div class="toggle-slider"></div>
                 </label>
-                <span id="modeContourLabel">Contour</span>
+                <span id="modeContourLabel" data-i18n="modeContour">Contour</span>
             </div>
 
             <div class="replace-panel">
-                <label>Remplacer par :</label>
+                <label data-i18n="replaceWith">Remplacer par :</label>
                 <div class="replace-mode-switch">
-                    <span id="replGlobalLabel" class="active">Globale</span>
+                    <span id="replGlobalLabel" class="active" data-i18n="global">Globale</span>
                     <label class="toggle">
                         <input type="checkbox" id="replModeToggle">
                         <div class="toggle-slider"></div>
                     </label>
-                    <span id="replPerColorLabel">Par couleur</span>
+                    <span id="replPerColorLabel" data-i18n="perColor">Par couleur</span>
                 </div>
                 <div class="replace-options" id="globalReplaceOptions">
                     <button class="replace-btn active" data-replace="transparent" id="replaceTransparent">
                         <div class="replace-checkerboard"></div>
-                        Transparent
+                        <span data-i18n="transparent">Transparent</span>
                     </button>
                     <button class="replace-btn" data-replace="color" id="replaceColor">
                         <div class="replace-color-preview" id="replaceColorPreview" style="background:#ffffff"></div>
-                        Couleur
+                        <span data-i18n="color">Couleur</span>
                         <span class="replace-edit-icon" id="replaceEditIcon" title="Modifier la couleur">&#9998;</span>
                     </button>
                     <input type="color" id="replaceColorInput" class="replace-color-input" value="#ffffff">
@@ -857,35 +882,35 @@
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20.71 5.63l-2.34-2.34a1 1 0 00-1.41 0l-3.54 3.54-1.41-1.41-1.41 1.41 1.06 1.06-6.19 6.19a2 2 0 00-.58 1.41V18h2.51a2 2 0 001.41-.58l6.19-6.19 1.06 1.06 1.41-1.41-1.41-1.41 3.54-3.54a1 1 0 000-1.41zM7.41 16H6v-1.41l6.19-6.18 1.41 1.41L7.41 16z" fill="#ccc"/>
                         </svg>
-                        Pipette
+                        <span data-i18n="pipette">Pipette</span>
                     </button>
                 </div>
                 <div id="perColorReplaceNotice" class="hidden">
-                    <p class="per-color-info">Chaque couleur a son propre remplacement</p>
+                    <p class="per-color-info" data-i18n="perColorReplaceNotice">Chaque couleur a son propre remplacement</p>
                 </div>
             </div>
 
             <div class="controls">
                 <div class="colors-panel">
-                    <h3 id="colorsTitle">Couleurs à éliminer (cliquez sur l'image)</h3>
+                    <h3 id="colorsTitle" data-i18n="colorsTitle">Couleurs à éliminer (cliquez sur l'image)</h3>
                     <div class="color-list" id="colorList"></div>
                 </div>
                 <div class="tolerance-panel">
                     <div class="tolerance-mode-switch">
-                        <span id="tolGlobalLabel" class="active">Globale</span>
+                        <span id="tolGlobalLabel" class="active" data-i18n="global">Globale</span>
                         <label class="toggle">
                             <input type="checkbox" id="tolModeToggle">
                             <div class="toggle-slider"></div>
                         </label>
-                        <span id="tolPerColorLabel">Par couleur</span>
+                        <span id="tolPerColorLabel" data-i18n="perColor">Par couleur</span>
                     </div>
                     <div id="globalTolerance">
-                        <h3>Tolérance</h3>
+                        <h3 data-i18n="tolerance">Tolérance</h3>
                         <input type="range" id="toleranceSlider" min="0" max="100" value="17">
                         <div class="tolerance-value" id="toleranceValue">17%</div>
                     </div>
                     <div id="perColorNotice" class="hidden">
-                        <p class="per-color-info">Chaque couleur a son propre slider</p>
+                        <p class="per-color-info" data-i18n="perColorToleranceNotice">Chaque couleur a son propre slider</p>
                     </div>
                 </div>
             </div>
@@ -893,7 +918,7 @@
             <div class="canvases">
                 <div class="canvas-main">
                     <div class="canvas-header">
-                        <h3>Résultat (cliquez pour sélectionner)</h3>
+                        <h3 data-i18n="result">Résultat (cliquez pour sélectionner)</h3>
                         <div class="zoom-controls">
                             <button class="zoom-btn" id="zoomOut" title="Dézoomer">&#128269;&#8722;</button>
                             <span class="zoom-level" id="zoomLevelDisplay">100%</span>
@@ -906,7 +931,7 @@
                     </div>
                 </div>
                 <div class="canvas-side">
-                    <h3>Source</h3>
+                    <h3 data-i18n="source">Source</h3>
                     <div class="canvas-container">
                         <canvas id="sourceDisplayCanvas"></canvas>
                     </div>
@@ -914,55 +939,55 @@
             </div>
 
             <div class="export-bar">
-                <button class="btn-secondary" id="logoBtn" disabled>Créer un logo</button>
-                <button class="btn" id="exportBtn" disabled>Exporter</button>
+                <button class="btn-secondary" id="logoBtn" disabled data-i18n="createLogo">Créer un logo</button>
+                <button class="btn" id="exportBtn" disabled data-i18n="export">Exporter</button>
             </div>
         </div>
 
         <div class="modal-overlay hidden" id="exportModal">
             <div class="modal">
                 <div class="modal-header">
-                    <h2>Exporter l'image</h2>
+                    <h2 data-i18n="exportImage">Exporter l'image</h2>
                     <button class="modal-close" id="modalClose">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="format-grid">
                         <button class="format-btn" data-format="png">
                             <span class="format-name">PNG</span>
-                            <span class="format-desc">Transparence conservée</span>
+                            <span class="format-desc" data-i18n="fmtPng">Transparence conservée</span>
                         </button>
                         <button class="format-btn" data-format="jpeg">
                             <span class="format-name">JPG</span>
-                            <span class="format-desc">Fond blanc, plus léger</span>
+                            <span class="format-desc" data-i18n="fmtJpg">Fond blanc, plus léger</span>
                         </button>
                         <button class="format-btn" data-format="webp">
                             <span class="format-name">WebP</span>
-                            <span class="format-desc">Moderne, léger, transparence</span>
+                            <span class="format-desc" data-i18n="fmtWebp">Moderne, léger, transparence</span>
                         </button>
                         <button class="format-btn" data-format="bmp">
                             <span class="format-name">BMP</span>
-                            <span class="format-desc">Non compressé</span>
+                            <span class="format-desc" data-i18n="fmtBmp">Non compressé</span>
                         </button>
                         <button class="format-btn" data-format="svg">
                             <span class="format-name">SVG</span>
-                            <span class="format-desc">Image embarquée en vectoriel</span>
+                            <span class="format-desc" data-i18n="fmtSvg">Image embarquée en vectoriel</span>
                         </button>
                     </div>
                     <div class="quality-section hidden" id="qualitySection">
-                        <h3>Qualité</h3>
+                        <h3 data-i18n="quality">Qualité</h3>
                         <input type="range" id="qualitySlider" min="1" max="100" value="92">
                         <div class="quality-value" id="qualityValue">92%</div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn" id="confirmExport" disabled>Exporter</button>
+                    <button class="btn" id="confirmExport" disabled data-i18n="export">Exporter</button>
                 </div>
             </div>
         </div>
         <div class="modal-overlay hidden" id="logoModal">
             <div class="modal">
                 <div class="modal-header">
-                    <h2>Aperçu du logo</h2>
+                    <h2 data-i18n="logoPreview">Aperçu du logo</h2>
                     <button class="modal-close" id="logoModalClose">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -973,33 +998,33 @@
                     <div class="format-grid" id="logoFormatGrid">
                         <button class="format-btn" data-format="png">
                             <span class="format-name">PNG</span>
-                            <span class="format-desc">Transparence conservée</span>
+                            <span class="format-desc" data-i18n="fmtPng">Transparence conservée</span>
                         </button>
                         <button class="format-btn" data-format="jpeg">
                             <span class="format-name">JPG</span>
-                            <span class="format-desc">Fond blanc, plus léger</span>
+                            <span class="format-desc" data-i18n="fmtJpg">Fond blanc, plus léger</span>
                         </button>
                         <button class="format-btn" data-format="webp">
                             <span class="format-name">WebP</span>
-                            <span class="format-desc">Moderne, léger, transparence</span>
+                            <span class="format-desc" data-i18n="fmtWebp">Moderne, léger, transparence</span>
                         </button>
                         <button class="format-btn" data-format="bmp">
                             <span class="format-name">BMP</span>
-                            <span class="format-desc">Non compressé</span>
+                            <span class="format-desc" data-i18n="fmtBmp">Non compressé</span>
                         </button>
                         <button class="format-btn" data-format="svg">
                             <span class="format-name">SVG</span>
-                            <span class="format-desc">Image embarquée en vectoriel</span>
+                            <span class="format-desc" data-i18n="fmtSvg">Image embarquée en vectoriel</span>
                         </button>
                     </div>
                     <div class="quality-section hidden" id="logoQualitySection">
-                        <h3>Qualité</h3>
+                        <h3 data-i18n="quality">Qualité</h3>
                         <input type="range" id="logoQualitySlider" min="1" max="100" value="92">
                         <div class="quality-value" id="logoQualityValue">92%</div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn" id="confirmLogoExport" disabled>Exporter</button>
+                    <button class="btn" id="confirmLogoExport" disabled data-i18n="export">Exporter</button>
                 </div>
             </div>
         </div>
@@ -1010,6 +1035,154 @@
     </div>
 
     <script>
+        // --- i18n ---
+        const translations = {
+            fr: {
+                title: 'Créateur de Logos',
+                uploadText: 'Glissez une image ici ou',
+                browseFiles: 'Parcourir les fichiers',
+                photoLibrary: 'Bibliothèque de photos',
+                modeColor: 'Couleur',
+                modeContour: 'Contour',
+                replaceWith: 'Remplacer par :',
+                global: 'Globale',
+                perColor: 'Par couleur',
+                perSelection: 'Par sélection',
+                transparent: 'Transparent',
+                color: 'Couleur',
+                pipette: 'Pipette',
+                perColorReplaceNotice: 'Chaque couleur a son propre remplacement',
+                perSelectionReplaceNotice: 'Chaque sélection a son propre remplacement',
+                colorsTitle: 'Couleurs à éliminer (cliquez sur l\'image)',
+                contoursTitle: 'Zones à éliminer (cliquez sur l\'image)',
+                tolerance: 'Tolérance',
+                perColorToleranceNotice: 'Chaque couleur a son propre slider',
+                perSelectionToleranceNotice: 'Chaque sélection a son propre slider',
+                result: 'Résultat (cliquez pour sélectionner)',
+                source: 'Source',
+                createLogo: 'Créer un logo',
+                export: 'Exporter',
+                exportImage: 'Exporter l\'image',
+                logoPreview: 'Aperçu du logo',
+                quality: 'Qualité',
+                fmtPng: 'Transparence conservée',
+                fmtJpg: 'Fond blanc, plus léger',
+                fmtWebp: 'Moderne, léger, transparence',
+                fmtBmp: 'Non compressé',
+                fmtSvg: 'Image embarquée en vectoriel',
+            },
+            en: {
+                title: 'Logo Creator',
+                uploadText: 'Drop an image here or',
+                browseFiles: 'Browse files',
+                photoLibrary: 'Photo library',
+                modeColor: 'Colour',
+                modeContour: 'Contour',
+                replaceWith: 'Replace with:',
+                global: 'Global',
+                perColor: 'Per colour',
+                perSelection: 'Per selection',
+                transparent: 'Transparent',
+                color: 'Colour',
+                pipette: 'Pipette',
+                perColorReplaceNotice: 'Each colour has its own replacement',
+                perSelectionReplaceNotice: 'Each selection has its own replacement',
+                colorsTitle: 'Colours to remove (click on the image)',
+                contoursTitle: 'Areas to remove (click on the image)',
+                tolerance: 'Tolerance',
+                perColorToleranceNotice: 'Each colour has its own slider',
+                perSelectionToleranceNotice: 'Each selection has its own slider',
+                result: 'Result (click to select)',
+                source: 'Source',
+                createLogo: 'Create a logo',
+                export: 'Export',
+                exportImage: 'Export image',
+                logoPreview: 'Logo preview',
+                quality: 'Quality',
+                fmtPng: 'Transparency preserved',
+                fmtJpg: 'White background, lighter',
+                fmtWebp: 'Modern, light, transparency',
+                fmtBmp: 'Uncompressed',
+                fmtSvg: 'Embedded image in vector',
+            },
+            cs: {
+                title: 'Tvůrce log',
+                uploadText: 'Přetáhněte obrázek sem nebo',
+                browseFiles: 'Procházet soubory',
+                photoLibrary: 'Knihovna fotografií',
+                modeColor: 'Barva',
+                modeContour: 'Obrys',
+                replaceWith: 'Nahradit:',
+                global: 'Globální',
+                perColor: 'Podle barvy',
+                perSelection: 'Podle výběru',
+                transparent: 'Průhledné',
+                color: 'Barva',
+                pipette: 'Pipeta',
+                perColorReplaceNotice: 'Každá barva má vlastní náhradu',
+                perSelectionReplaceNotice: 'Každý výběr má vlastní náhradu',
+                colorsTitle: 'Barvy k odstranění (klikněte na obrázek)',
+                contoursTitle: 'Oblasti k odstranění (klikněte na obrázek)',
+                tolerance: 'Tolerance',
+                perColorToleranceNotice: 'Každá barva má vlastní posuvník',
+                perSelectionToleranceNotice: 'Každý výběr má vlastní posuvník',
+                result: 'Výsledek (klikněte pro výběr)',
+                source: 'Zdroj',
+                createLogo: 'Vytvořit logo',
+                export: 'Exportovat',
+                exportImage: 'Exportovat obrázek',
+                logoPreview: 'Náhled loga',
+                quality: 'Kvalita',
+                fmtPng: 'Průhlednost zachována',
+                fmtJpg: 'Bílé pozadí, lehčí',
+                fmtWebp: 'Moderní, lehký, průhlednost',
+                fmtBmp: 'Nekomprimovaný',
+                fmtSvg: 'Vložený obrázek ve vektoru',
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            document.documentElement.lang = lang;
+            const t = translations[lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (t[key] !== undefined) {
+                    el.textContent = t[key];
+                }
+            });
+            // Update dynamic texts based on current mode
+            updateDynamicTexts();
+        }
+
+        function updateDynamicTexts() {
+            const t = translations[currentLang];
+            const isContour = typeof isContourMode === 'function' && isContourMode();
+
+            // Colors title
+            const ct = document.getElementById('colorsTitle');
+            if (ct) ct.textContent = isContour ? t.contoursTitle : t.colorsTitle;
+
+            // Per-color labels
+            const tolPCL = document.getElementById('tolPerColorLabel');
+            const replPCL = document.getElementById('replPerColorLabel');
+            if (tolPCL) tolPCL.textContent = isContour ? t.perSelection : t.perColor;
+            if (replPCL) replPCL.textContent = isContour ? t.perSelection : t.perColor;
+
+            // Per-color notices
+            const pctn = document.querySelector('[data-i18n="perColorToleranceNotice"]');
+            const pcrn = document.querySelector('[data-i18n="perColorReplaceNotice"]');
+            if (pctn) pctn.textContent = isContour ? t.perSelectionToleranceNotice : t.perColorToleranceNotice;
+            if (pcrn) pcrn.textContent = isContour ? t.perSelectionReplaceNotice : t.perColorReplaceNotice;
+        }
+
+        function t(key) {
+            return translations[currentLang][key] || key;
+        }
+
         const uploadZone = document.getElementById('uploadZone');
         const fileInput = document.getElementById('fileInput');
         const workspace = document.getElementById('workspace');
@@ -1323,20 +1496,8 @@
             const isContour = modeToggle.checked;
             modeColorLabel.classList.toggle('active', !isContour);
             modeContourLabel.classList.toggle('active', isContour);
-            colorsTitle.textContent = isContour
-                ? 'Zones à éliminer (cliquez sur l\'image)'
-                : 'Couleurs à éliminer (cliquez sur l\'image)';
-            // Update per-color labels
-            const perLabel = isContour ? 'Par sélection' : 'Par couleur';
-            tolPerColorLabel.textContent = perLabel;
-            replPerColorLabel.textContent = perLabel;
-            // Update per-color notice texts
-            perColorNotice.querySelector('p').textContent = isContour
-                ? 'Chaque sélection a son propre slider'
-                : 'Chaque couleur a son propre slider';
-            perColorReplaceNotice.querySelector('p').textContent = isContour
-                ? 'Chaque sélection a son propre remplacement'
-                : 'Chaque couleur a son propre remplacement';
+            // Update dynamic texts via i18n
+            updateDynamicTexts();
             // Reset selections when switching mode
             selectedColors = [];
             contourMasks = [];
@@ -2112,6 +2273,15 @@
         function exportAsBmp(filename) {
             exportCanvasAsBmp(resultCanvas, filename);
         }
+
+        // --- Language selector init ---
+        const langSelect = document.getElementById('langSelect');
+        langSelect.value = currentLang;
+        langSelect.addEventListener('change', (e) => {
+            setLanguage(e.target.value);
+        });
+        // Apply saved language on load
+        setLanguage(currentLang);
     </script>
 </body>
 </html>
